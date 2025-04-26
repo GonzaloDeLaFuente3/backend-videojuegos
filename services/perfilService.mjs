@@ -3,6 +3,14 @@ import Perfil from '../models/Perfil.mjs';
 export const obtenerTodos = async () => {
   return await Perfil.find().populate('usuario');
 };
+export const obtenerPerfilesPorUsuario = async (usuarioId) => {
+  try {
+    const perfiles = await Perfil.find({ usuario: usuarioId });
+    return perfiles;
+  } catch (error) {
+    throw new Error('Error al obtener los perfiles');
+  }
+};
 
 export const obtenerPorId = async (id) => {
   return await Perfil.findById(id).populate('usuario');
@@ -21,4 +29,4 @@ export const eliminar = async (id) => {
   return await Perfil.findByIdAndDelete(id);
 };
 
-export default { obtenerTodos, obtenerPorId, crear, actualizar, eliminar };
+export default { obtenerTodos, obtenerPorId, crear, actualizar, eliminar, obtenerPerfilesPorUsuario };

@@ -2,7 +2,7 @@ import perfilService from '../services/perfilService.mjs';
 
 export const obtenerPerfiles = async (req, res) => {
     try {
-        const perfiles = await perfilService.obtenerTodos();
+        const perfiles = await perfilService.obtenerPerfilesPorUsuario(req.usuario._id);
         res.json(perfiles);
     } catch (err) {
         res.status(500).json({ msg: err.message });
