@@ -10,11 +10,11 @@ export const registrar = async (nombre, email, password) => {
     usuario = new Usuario({ nombre, email, password });
     await usuario.save();
 
-    const payload = { usuario: { id: usuario.id } };
+    const payload = { usuario: { id: usuario.id, nombre: usuario.nombre, email: usuario.email } };
     return new Promise((resolve, reject) => {
         jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
         if (err) reject(err);
-        resolve(token);
+        resolve({ token, usuario: payload.usuario });
         });
     });
 };
@@ -30,11 +30,11 @@ export const login = async (email, password) => {
         throw new Error('Credenciales inválidas');
     }
 
-    const payload = { usuario: { id: usuario.id } };
+    const payload = { usuario: { id: usuario.id, nombre: usuario.nombre, email: usuario.email } };
     return new Promise((resolve, reject) => {
         jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
         if (err) reject(err);
-        resolve(token);
+        resolve({ token, usuario: payload.usuario });
         });
     });
 };
