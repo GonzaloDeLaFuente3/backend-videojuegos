@@ -1,13 +1,13 @@
 import videojuegoService from '../services/videoJuegoService.mjs';
 
 export const obtenerVideojuegos = async (req, res) => {
-    const { genero, plataforma, pagina = 1, limite = 10 } = req.query;
+    const { genero, plataforma, edadMinima, pagina, limite } = req.query;
     // console.log('Parámetros recibidos:', { genero, plataforma, pagina, limite }); 
     try {
-        const videojuegos = await videojuegoService.obtenerConFiltros(genero, plataforma, pagina, limite);
+        const videojuegos = await videojuegoService.obtenerConFiltros(genero, plataforma, edadMinima, pagina, limite);
         res.json(videojuegos);
     } catch (err) {
-        res.status(500).json({ msg: err.message });
+        res.status(500).json({ msg: 'Error al obtener los videojuegos' });
     }
 };
 

@@ -4,14 +4,13 @@ import Videojuego from '../models/Videojuego.mjs';
     return await Videojuego.find();
 }; */
 
-export const obtenerConFiltros = async (genero, plataforma, pagina, limite) => {
+export const obtenerConFiltros = async (genero, plataforma, edadMinima, pagina = 1, limite = 10) => {
     const filtros = {};
-    //$regex permite hacer búsquedas parciales para busqueda insensible a mayúsculas y minúsculas
     if (genero) filtros.genero = { $regex: genero, $options: 'i' };
     if (plataforma) filtros.plataforma = { $regex: plataforma, $options: 'i' };
+    if (edadMinima) filtros.edadMinima = { $lte: parseInt(edadMinima, 10) };// Cambia a $gte si quieres videojuegos con edad mínima mayor o igual a la proporcionada
 
     const opciones = {
-        //skip y limmit son para paginación de Mongoose
         skip: (pagina - 1) * limite,
         limit: parseInt(limite, 10),
     };
