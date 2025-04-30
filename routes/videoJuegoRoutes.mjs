@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', authMiddleware, obtenerVideojuegos);
 router.get('/:id', authMiddleware, obtenerVideojuegoPorId);
-router.post('/crear', authMiddleware, verificarPerfil(['adulto', 'adolescente']), crearVideojuego);
+router.post('/crear', authMiddleware,verificarPerfil(['adulto', 'adolescente']), crearVideojuego);
 router.put('/actualizar/:id', authMiddleware,verificarPerfil(['adulto', 'adolescente']), actualizarVideojuego);
 router.delete('/eliminar/:id', authMiddleware,verificarPerfil(['adulto', 'adolescente']), eliminarVideojuego);
 

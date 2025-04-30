@@ -23,7 +23,11 @@ app.use(express.json());
 app.use(cors({
   origin: 'http://localhost:5173', // dominio de tu frontend
   methods: 'GET,POST,PUT,DELETE',
-  allowedHeaders: 'Content-Type,Authorization',
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'Perfil-Id', // Añade el encabezado Perfil-Id aquí
+  ],
 }));
 
 //rutas 
