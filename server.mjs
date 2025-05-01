@@ -27,7 +27,9 @@ app.use(cors({
     'Content-Type',
     'Authorization',
     'Perfil-Id', // Añade el encabezado Perfil-Id aquí
+    'x-total-count' // Añade este header
   ],
+  exposedHeaders: ['x-total-count'] // Asegúrate de exponer este heade
 }));
 
 //rutas 
