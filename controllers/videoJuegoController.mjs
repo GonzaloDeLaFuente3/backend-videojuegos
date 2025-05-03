@@ -1,7 +1,7 @@
 import videojuegoService from '../services/videoJuegoService.mjs';
 
 export const obtenerVideojuegos = async (req, res) => {
-    const { genero, plataforma, edadMinima, pagina = 1, limite = 10 } = req.query;
+    const { genero, plataforma, edadMinima, pagina = 1, limite = 10 } = req.query;// Extraigo los parámetros de la consulta
 
     try {
         const { videojuegos, totalVideojuegos } = await videojuegoService.obtenerConFiltros(
@@ -10,17 +10,17 @@ export const obtenerVideojuegos = async (req, res) => {
             edadMinima, 
             pagina, 
             limite
-        );
+        );//llama al servicio para obtener los videojuegos con los filtros aplicados
 
         // Validar y asegurar que totalVideojuegos es un número
-        const total = Number(totalVideojuegos);
-        if (isNaN(total)) {
+        const total = Number(totalVideojuegos);// Convertir a número
+        if (isNaN(total)) {// Verificar si es NaN
             throw new Error('El conteo total de videojuegos no es válido');
         }
 
         // Establecer el header con el total validado
-        res.set('x-total-count', total.toString());
-        res.json(videojuegos);
+        res.set('x-total-count', total.toString());// Convertir a string para el header
+        res.json(videojuegos);// respuesta exitosa, devuelve los videojuegos
     } catch (err) {
         console.error('Error en obtenerVideojuegos:', err);
         res.status(500).json({ msg: 'Error al obtener los videojuegos', error: err.message });

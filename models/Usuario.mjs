@@ -9,17 +9,20 @@ const UsuarioSchema = new mongoose.Schema({
 });
 
 // Método para comparar contraseñas
-UsuarioSchema.methods.compararPassword = function(password) {
+UsuarioSchema.methods.compararPassword = function(password) {// Compara la contraseña proporcionada con la almacenada en la base de datos
+    // Utiliza bcrypt para comparar las contraseñas
     return bcrypt.compareSync(password, this.password);
 };
 
 // Middleware para hashear la contraseña antes de guardar
-UsuarioSchema.pre('save', function(next) {
-    if (!this.isModified('password')) {
+UsuarioSchema.pre('save', function(next) {//  se ejecuta antes de guardar el usuario
+    if (!this.isModified('password')) {// Verifica si la contraseña ha sido modificada
         return next();
     }
-    const salt = bcrypt.genSaltSync(10);
-    this.password = bcrypt.hashSync(this.password, salt);
+    const salt = bcrypt.genSaltSync(10);// Genera un salt para el hash de la contraseña
+    // Hashea la contraseña utilizando bcrypt
+    // La función hashSync toma la contraseña y el salt como argumentos
+    this.password = bcrypt.hashSync(this.password, salt);  
     next();
 });
 

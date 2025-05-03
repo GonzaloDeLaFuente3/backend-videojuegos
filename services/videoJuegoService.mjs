@@ -1,22 +1,18 @@
 import Videojuego from '../models/Videojuego.mjs';
 
-/* export const obtenerTodos = async () => {
-    return await Videojuego.find();
-}; */
-
-export const obtenerConFiltros = async (genero, plataforma, edadMinima, pagina = 1, limite = 10) => {
+export const obtenerConFiltros = async (genero, plataforma, edadMinima, pagina = 1, limite = 10) => {// Extraigo los parámetros de la consulta
     const filtros = {};
-    if (genero) filtros.genero = { $regex: genero, $options: 'i' };
-    if (plataforma) filtros.plataforma = { $regex: plataforma, $options: 'i' };
-    if (edadMinima) filtros.edadMinima = { $lte: parseInt(edadMinima, 10) };
+    if (genero) filtros.genero = { $regex: genero, $options: 'i' };// Expresión regular para buscar por género
+    if (plataforma) filtros.plataforma = { $regex: plataforma, $options: 'i' };// Expresión regular para buscar por plataforma
+    if (edadMinima) filtros.edadMinima = { $lte: parseInt(edadMinima, 10) };// Filtrar por edad mínima
 
     // Validar parámetros de paginación
-    const paginaNum = Math.max(1, parseInt(pagina, 10) || 1);
-    const limiteNum = Math.max(1, parseInt(limite, 10)) || 10;
+    const paginaNum = Math.max(1, parseInt(pagina, 10) || 1);// Asegurar que la página sea al menos 1
+    const limiteNum = Math.max(1, parseInt(limite, 10)) || 10;// Asegurar que el límite sea al menos 1
 
-    const opciones = {
-        skip: (paginaNum - 1) * limiteNum,
-        limit: limiteNum,
+    const opciones = {// Opciones de paginación
+        skip: (paginaNum - 1) * limiteNum,// Calcular el número de documentos a omitir
+        limit: limiteNum,// Limitar el número de documentos devueltos
     };
 
     // Obtener el total de videojuegos que coinciden con los filtros
@@ -32,7 +28,7 @@ export const obtenerConFiltros = async (genero, plataforma, edadMinima, pagina =
 
     return {
         videojuegos,
-        totalVideojuegos: Number(totalVideojuegos) // Asegurar que es número
+        totalVideojuegos: Number(totalVideojuegos) // Aseguro que es un número
     };
 };
 

@@ -19,17 +19,17 @@ const app = express();
 // Middleware para analizar JSON
 app.use(express.json());
 
-// Configurar CORS
+// Configurar CORS. CORS permite que tu frontend acceda a la API desde un dominio diferente
 app.use(cors({
   origin: 'https://nodogametfepico-delafuente.netlify.app', // dominio de tu frontend
   methods: 'GET,POST,PUT,DELETE',
   allowedHeaders: [
     'Content-Type',
     'Authorization',
-    'Perfil-Id', // Añade el encabezado Perfil-Id aquí
-    'x-total-count' // Añade este header
+    'Perfil-Id', // Añade el encabezado Perfil-Id . Este encabezado se utiliza para enviar el ID del perfil en las solicitudes
+    'x-total-count' // Añade este header. Este header se utiliza para enviar el total de elementos en la respuesta
   ],
-  exposedHeaders: ['x-total-count'] // Asegúrate de exponer este heade
+  exposedHeaders: ['x-total-count'] // Este header se utiliza para enviar el total de elementos en la respuesta. expose el header x-total-count para que el frontend pueda acceder a él
 }));
 
 //rutas 

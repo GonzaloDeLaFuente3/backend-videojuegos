@@ -1,7 +1,7 @@
 import Perfil from '../models/Perfil.mjs';
 
 export const obtenerTodos = async () => {
-  return await Perfil.find().populate('usuario');
+  return await Perfil.find().populate('usuario');// populate('usuario') carga los datos del usuario asociado al perfil y find() obtiene todos los perfiles de la base de datos
 };
 export const obtenerPerfilesPorUsuario = async (usuarioId) => {
   try {
@@ -22,7 +22,7 @@ export const crear = async (datos) => {
 };
 
 export const actualizar = async (id, datos) => {
-  return await Perfil.findByIdAndUpdate(id, datos, { new: true });
+  return await Perfil.findByIdAndUpdate(id, datos, { new: true });// { new: true } devuelve el documento actualizado. findByIdAndUpdate busca un documento por su id y lo actualiza con los nuevos datos
 };
 
 export const eliminar = async (id) => {
